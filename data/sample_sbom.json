@@ -1,0 +1,125 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2024-01-15T12:00:00Z",
+    "tools": [{"vendor": "CycloneDX", "name": "cyclonedx-py", "version": "3.0.0"}],
+    "component": {
+      "type": "application",
+      "name": "acme-payment-service",
+      "version": "2.4.1",
+      "description": "Core payment processing microservice for ACME Corp",
+      "supplier": {"name": "ACME Corporation", "url": "https://acme.example.com"}
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "urllib3",
+      "version": "1.26.14",
+      "purl": "pkg:pypi/urllib3@1.26.14",
+      "licenses": [{"license": {"id": "MIT"}}],
+      "description": "HTTP client for Python",
+      "supplier": {"name": "urllib3 contributors"},
+      "hashes": [{"alg": "SHA-256", "content": "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"}]
+    },
+    {
+      "type": "library",
+      "name": "cryptography",
+      "version": "41.0.3",
+      "purl": "pkg:pypi/cryptography@41.0.3",
+      "licenses": [{"license": {"id": "Apache-2.0"}}],
+      "description": "Cryptographic recipes and primitives",
+      "supplier": {"name": "The Python Cryptographic Authority"},
+      "hashes": [{"alg": "SHA-256", "content": "d5bcd4af9b0a0a8600797287e6c974f8b7fb7285d78c5d3cf8e52bc38a5f5bcf"}]
+    },
+    {
+      "type": "library",
+      "name": "fastapi",
+      "version": "0.103.2",
+      "purl": "pkg:pypi/fastapi@0.103.2",
+      "licenses": [{"license": {"id": "MIT"}}],
+      "description": "FastAPI framework for building APIs",
+      "supplier": {"name": "Sebastián Ramírez"},
+      "hashes": [{"alg": "SHA-256", "content": "1f2926b2ee68ae40e3b35ab3c8e4e10c18f23e9d3dc8f23cc0ad78e23b4be6f1"}]
+    },
+    {
+      "type": "library",
+      "name": "sqlalchemy",
+      "version": "2.0.21",
+      "purl": "pkg:pypi/sqlalchemy@2.0.21",
+      "licenses": [{"license": {"id": "MIT"}}],
+      "description": "Database Abstraction Library",
+      "supplier": {"name": "SQLAlchemy authors"},
+      "hashes": [{"alg": "SHA-256", "content": "b2cc150f4c8696eef7f6a4a8ef3de54bd5e4b5e41a87c9f2b78b2a8b4a6c8e3d"}]
+    },
+    {
+      "type": "library",
+      "name": "pydantic",
+      "version": "2.4.2",
+      "purl": "pkg:pypi/pydantic@2.4.2",
+      "licenses": [{"license": {"id": "MIT"}}],
+      "description": "Data validation using Python type annotations",
+      "supplier": {"name": "Samuel Colvin"},
+      "hashes": [{"alg": "SHA-256", "content": "bc3ddf669d234f4220e6e1c5a5f748b7a928f638b43d6cdc9cda9f51bc3ae5e2"}]
+    },
+    {
+      "type": "library",
+      "name": "requests",
+      "version": "2.28.1",
+      "purl": "pkg:pypi/requests@2.28.1",
+      "licenses": [{"license": {"id": "Apache-2.0"}}],
+      "description": "Python HTTP for Humans",
+      "supplier": {"name": "Kenneth Reitz"},
+      "hashes": [{"alg": "SHA-256", "content": "7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"}]
+    },
+    {
+      "type": "library",
+      "name": "redis",
+      "version": "4.5.4",
+      "purl": "pkg:pypi/redis@4.5.4",
+      "licenses": [{"license": {"id": "MIT"}}],
+      "description": "Python client for Redis",
+      "supplier": {"name": "Redis Labs"},
+      "hashes": [{"alg": "SHA-256", "content": "b2c4e8d1c3f9a6f5e8d2b1c4e7f3a2b9e1d4c7f2a5b8e3d6c9f1a4b7e2d5c8f3"}]
+    },
+    {
+      "type": "library",
+      "name": "pillow",
+      "version": "9.5.0",
+      "purl": "pkg:pypi/pillow@9.5.0",
+      "licenses": [{"license": {"id": "HPND"}}],
+      "description": "Python Imaging Library (Fork)",
+      "supplier": {"name": "Alex Clark"},
+      "hashes": [{"alg": "SHA-256", "content": "bf548479d336726d7a0eceb6e767e1abc8596d7d05e33b4c4b69b55d5bde7e3f"}]
+    },
+    {
+      "type": "library",
+      "name": "aiohttp",
+      "version": "3.8.5",
+      "purl": "pkg:pypi/aiohttp@3.8.5",
+      "licenses": [{"license": {"id": "Apache-2.0"}}],
+      "description": "Async HTTP client/server framework",
+      "supplier": {"name": "aiohttp contributors"},
+      "hashes": [{"alg": "SHA-256", "content": "4d04a7f5a7b2e1f9c6a3b8d5e2f7a4c1b9e6d3f0a7c4b1e8d5f2a9c6b3e0d7f4"}]
+    },
+    {
+      "type": "library",
+      "name": "numpy",
+      "version": "1.24.4",
+      "purl": "pkg:pypi/numpy@1.24.4",
+      "licenses": [{"license": {"id": "BSD-3-Clause"}}],
+      "description": "Scientific computing with Python",
+      "supplier": {"name": "NumPy contributors"},
+      "hashes": [{"alg": "SHA-256", "content": "3b3e6afe2b22a2aa6cfef73d5add65b5bb0bfa67a62aba75a6c1b5a5e3c9d8f1"}]
+    }
+  ],
+  "dependencies": [
+    {"ref": "pkg:pypi/fastapi@0.103.2", "dependsOn": ["pkg:pypi/pydantic@2.4.2", "pkg:pypi/urllib3@1.26.14"]},
+    {"ref": "pkg:pypi/cryptography@41.0.3", "dependsOn": []},
+    {"ref": "pkg:pypi/requests@2.28.1", "dependsOn": ["pkg:pypi/urllib3@1.26.14"]},
+    {"ref": "pkg:pypi/aiohttp@3.8.5", "dependsOn": []}
+  ]
+}

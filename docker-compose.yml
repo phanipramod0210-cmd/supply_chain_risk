@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+  supply-chain-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: sc-risk-api
+    restart: unless-stopped
+    ports:
+      - "8004:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://sc_user:sc_pass@postgres:5432/supplychain_db
+      - REDIS_URL=redis://:sc_redis_pass@redis:6379/0
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - CHROMA_COLLECTION_NAME=nvd_cve_embeddings
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - LLM_MODEL=claude-3-5-sonnet-20241022
+      - NVD_API_KEY=${NVD_API_KEY:-}
+      - RAG_TOP_K=5
+      - RAG_SIMILARITY_THRESHOLD=0.6
+      - MAX_SBOM_COMPONENTS=1000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    networks:
+      - sc-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: sc-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sc_user
+      POSTGRES_PASSWORD: sc_pass
+      POSTGRES_DB: supplychain_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - sc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sc_user -d supplychain_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: sc-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --requirepass sc_redis_pass
+    ports:
+      - "6382:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sc-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "sc_redis_pass", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  chromadb:
+    image: chromadb/chroma:0.5.20
+    container_name: sc-chromadb
+    restart: unless-stopped
+    ports:
+      - "8005:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+      - ALLOW_RESET=TRUE
+    volumes:
+      - chroma_data:/chroma/chroma
+    networks:
+      - sc-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+
+networks:
+  sc-network:
+    driver: bridge
